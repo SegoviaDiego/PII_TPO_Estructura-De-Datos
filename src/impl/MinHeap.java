@@ -24,6 +24,12 @@ public class MinHeap extends HeapTDA {
         }
     }
 
+    /**
+     * Para encontrar si un valor existe dentro del heap, iteramos por cada uno de los valores hasta encontrar el item
+     * deseado o llegar al final del heap y retornar false.
+     *
+     * @Costo: O(n). Lineal. Porque en el peor de los casos se tienen que recorrer todos los valores del heap.
+     */
     public static boolean hasValue(MinHeap heap, int value) {
         int index = 0; // O(1)
         boolean response = false; // O(1)
@@ -38,34 +44,50 @@ public class MinHeap extends HeapTDA {
         return response; // O(1)
     }
 
+    /**
+     * Este metodo se encarga de ordenar un array recibido por parametro, para realizar eso realiza una copia de todos
+     * los valores del array en un Heap, para luego removerlos de manera ordenada (menor a mayor) y agregarlos a un
+     * nuevo array ordenado.
+     *
+     * @Costo: O(2 (n log n)). Porque se realizan 2 operaciones de O(n log n) dentro del método.
+     */
     public static int[] sortArray(int[] array) {
-        int index = 0;
-        int size = array.length;
-        int[] sortedArray = new int[size];
-        HeapTDA heap = new MinHeap(array.length);
+        int index = 0; // O(1)
+        int size = array.length; // O(1)
+        int[] sortedArray = new int[size]; // O(1)
+        HeapTDA heap = new MinHeap(array.length); // O(1)
 
-        for (int value : array)
-            heap.push(value);
+        for (int value : array) // O(n log n). Porque recorremos cada elemento del array y, por cada uno, hacemos un heap.push que cuesta O(log n).
+            heap.push(value); // O(log n)
 
-        while (index < size) {
-            sortedArray[index] = heap.top();
-            heap.pop();
+        while (index < size) { // O(n log n). Porque recorremos cada elemento del array y, por cada uno, hacemos un heap.pop que cuesta O(log n).
+            sortedArray[index] = heap.top(); // O(1)
+            heap.pop(); // O(log n)
 
-            index++;
+            index++; // O(1)
         }
 
-        return sortedArray;
+        return sortedArray; // O(1)
     }
 
+    /**
+     * Este metodo valida crea 2 HashSets para guardar todos los valores de ambos heaps. Para validar si
+     * los Heaps son equivalentes (si tienen los mismos valores dentro) realiza un equals de Sets. Este metodo
+     * nos permite validar si 2 sets tienen los mismos valores dentro.
+     *
+     * @Costo: O(3n). Porque se realizan 3 operaciones de O(n) dentro del método.
+     */
     public static boolean equivalentTo(MinHeap a, MinHeap b) {
-        HashSet<Integer> aValues = new HashSet<>();
-        HashSet<Integer> bValues = new HashSet<>();
+        HashSet<Integer> aValues = new HashSet<>(); // O(1)
+        HashSet<Integer> bValues = new HashSet<>(); // O(1)
 
-        for (int i = 0; i < a.size; i++) aValues.add(a.data[i]);
+        for (int i = 0; i < a.size; i++) // O(n)
+            aValues.add(a.data[i]); // O(1)
 
-        for (int j = 0; j < a.size; j++) bValues.add(b.data[j]);
+        for (int j = 0; j < a.size; j++) // O(n)
+            bValues.add(b.data[j]); // O(1)
 
-        return aValues.equals(bValues);
+        return aValues.equals(bValues); // O(n). El método AbstractCollection.containsAll interno de Java realiza un foreach de cada uno de los valores. También valida tamaño y referencia pero esas operaciones son obviables por ser O(1)
     }
 
     /**
