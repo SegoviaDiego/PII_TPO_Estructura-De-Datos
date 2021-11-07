@@ -2,6 +2,8 @@ package impl;
 
 import api.HeapTDA;
 
+import java.util.HashSet;
+
 public class MinHeap extends HeapTDA {
 
     protected int[] data;
@@ -16,6 +18,56 @@ public class MinHeap extends HeapTDA {
         this.size = 0;
     }
 
+    public static void printHeap(MinHeap heap) {
+        for (int i = 0; i < heap.size; i++) {
+            System.out.println(heap.data[i]);
+        }
+    }
+
+    public static boolean hasValue(MinHeap heap, int value) {
+        int index = 0; // O(1)
+        boolean response = false; // O(1)
+
+        while (index < heap.size && !response) {  // O(n). Lineal. Porque en el peor de los casos, debe llegar hasta el ultimo elemento para encontrar el valor (recorre todos los n elementos de heap).
+            if (heap.data[index] == value) // O(1)
+                response = true; // O(1)
+
+            index++; // O(1)
+        }
+
+        return response; // O(1)
+    }
+
+    public static int[] sortArray(int[] array) {
+        int index = 0;
+        int size = array.length;
+        int[] sortedArray = new int[size];
+        HeapTDA heap = new MinHeap(array.length);
+
+        for (int value : array)
+            heap.push(value);
+
+        while (index < size) {
+            sortedArray[index] = heap.top();
+            heap.pop();
+
+            index++;
+        }
+
+        return sortedArray;
+    }
+
+    public static boolean equivalentTo(MinHeap a, MinHeap b) {
+        HashSet<Integer> aValues = new HashSet<>();
+        HashSet<Integer> bValues = new HashSet<>();
+
+        for (int i = 0; i < a.size; i++) aValues.add(a.data[i]);
+
+        for (int j = 0; j < a.size; j++) bValues.add(b.data[j]);
+
+        return aValues.equals(bValues);
+    }
+
     /**
      * @Tarea_Nombre: push
      * @Tarea_Descripción: Inserta un elemento en el Heap, manteniendo el orden del arbol.
@@ -24,7 +76,7 @@ public class MinHeap extends HeapTDA {
      * @Precondiciones: Ninguno.
      * @Postcondiciones: El size del heap crece en 1 y podemos encontrar el elemento dentro del heap.
      * @Excepción: Ninguno.
-     * @Costo: O( log n ). Logaritmico
+     * @Costo: O(log n). Logaritmico
      */
     @Override
     public void push(int valor) {
@@ -67,8 +119,6 @@ public class MinHeap extends HeapTDA {
         if (size == 0) throw new IllegalStateException("No hay valores en el Heap."); // O(1)
         return this.data[0]; // O(1)
     }
-
-    // Internal methods
 
     /**
      * @Tarea_Nombre: getLeftChildIndex
@@ -184,7 +234,7 @@ public class MinHeap extends HeapTDA {
     /**
      * @Tarea_Nombre: heapifyUp
      * @Tarea_Descripción: Ordena el Heap hacia arriba, es decir, se asegura que los valores sean decrecientes desde la ultima posición.
-     * @Costo: O( log n ). Logarítmica.
+     * @Costo: O(log n). Logarítmica.
      */
     private void heapifyUp() {
         int index = size - 1; // O(1)
@@ -197,7 +247,7 @@ public class MinHeap extends HeapTDA {
     /**
      * @Tarea_Nombre: heapifyDown
      * @Tarea_Descripción: Ordena el Heap hacia abajo, es decir, se asegura que los valores sean crecientes desde la primer posicion (valor minimo).
-     * @Costo: O( log n ). Logarítmica.
+     * @Costo: O(log n). Logarítmica.
      */
     private void heapifyDown() {
         int index = 0; // O(1)
@@ -215,13 +265,6 @@ public class MinHeap extends HeapTDA {
             swap(index, smallerChildIndex); // O(1)
 
             index = smallerChildIndex; // O(1)
-        }
-    }
-
-    public static void printHeap(MinHeap heap){
-        while(heap.size > 0) {
-            System.out.println(heap.top());
-            heap.pop();
         }
     }
 }
