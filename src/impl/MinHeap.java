@@ -116,15 +116,16 @@ public class MinHeap extends HeapTDA {
      * @Precondiciones: Ninguno.
      * @Postcondiciones: El size del heap decrece en 1.
      * @Excepción: IllegalStateException: "No hay valores en el Heap.". Se lanza cuando el Heap no tiene ningun valor.
+     * @Costo: O(log n). Logaritmico
      */
     @Override
     public void pop() {
-        if (size == 0) throw new IllegalStateException("No hay valores en el Heap.");
+        if (size == 0) throw new IllegalStateException("No hay valores en el Heap."); // O(1)
 
-        this.data[0] = this.data[this.size - 1];
-        size--;
+        this.data[0] = this.data[this.size - 1]; // O(1)
+        size--; // O(1)
 
-        this.heapifyDown();
+        this.heapifyDown(); // O(log n)
     }
 
     /**
@@ -135,6 +136,7 @@ public class MinHeap extends HeapTDA {
      * @Precondiciones: El heap no puede estar vacio.
      * @Postcondiciones: Ninguno
      * @Excepción: IllegalStateException: "No hay valores en el Heap.". Se lanza cuando el Heap no tiene ningun valor.
+     * @Costo: O(1). Constante
      */
     @Override
     public int top() {

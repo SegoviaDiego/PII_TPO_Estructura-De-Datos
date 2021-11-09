@@ -7,39 +7,57 @@ public class ColaPrioridad implements ColaPrioridadTDA {
     protected Item[] data;
     protected int size;
 
+    /**
+     * @Costo: O(1). Constante.
+     */
     @Override
     public void InicializarCola() {
-        this.data = new Item[100];
-        this.size = 0;
+        this.data = new Item[100]; // O(1)
+        this.size = 0; // O(1)
     }
 
+    /**
+     * @Costo: O(log n). Logaritmica.
+     */
     @Override
     public void AcolarPrioridad(int x, int prioridad) {
-        Item item = new Item();
-        item.priority = prioridad;
-        item.value = x;
+        Item item = new Item(); // O(1)
+        item.priority = prioridad; // O(1)
+        item.value = x; // O(1)
 
-        push(item);
+        push(item); // O(log n)
     }
 
+    /**
+     * @Costo: O(log n). Logaritmica
+     */
     @Override
     public void Desacolar() {
-        pop();
+        pop(); // O(log n)
     }
 
+    /**
+     * @Costo: O(1). Constante.
+     */
     @Override
     public boolean ColaVacia() {
-        return size == 0;
+        return size == 0; // O(1)
     }
 
+    /**
+     * @Costo: O(1). Constante.
+     */
     @Override
     public int Primero() {
-        return top().value;
+        return top().value; // O(1)
     }
 
+    /**
+     * @Costo: O(1). Constante.
+     */
     @Override
     public int Prioridad() {
-        return top().priority;
+        return top().priority; // O(1)
     }
 
     /**
@@ -67,14 +85,15 @@ public class ColaPrioridad implements ColaPrioridadTDA {
      * @Precondiciones: Ninguno.
      * @Postcondiciones: El size del heap decrece en 1.
      * @Excepción: IllegalStateException: "No hay valores en el Heap.". Se lanza cuando el Heap no tiene ningun valor.
+     * @Costo: O(log n). Logaritmico. Porque llama a un metodo logaritmico.
      */
     protected void pop() {
-        if (size == 0) throw new IllegalStateException("No hay valores en el Heap.");
+        if (size == 0) throw new IllegalStateException("No hay valores en el Heap."); // O(1)
 
-        this.data[0] = this.data[this.size - 1];
-        size--;
+        this.data[0] = this.data[this.size - 1]; // O(1)
+        size--; // O(1)
 
-        this.heapifyDown();
+        this.heapifyDown(); // O(log n)
     }
 
     /**
@@ -85,6 +104,7 @@ public class ColaPrioridad implements ColaPrioridadTDA {
      * @Precondiciones: El heap no puede estar vacio.
      * @Postcondiciones: Ninguno
      * @Excepción: IllegalStateException: "No hay valores en el Heap.". Se lanza cuando el Heap no tiene ningun valor.
+     * @Costo: O(1). Constante.
      */
     protected Item top() {
         if (size == 0) throw new IllegalStateException("No hay valores en el Heap."); // O(1)
