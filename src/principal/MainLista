@@ -1,0 +1,77 @@
+package principal;
+
+import impl.ListaEspecial;
+
+public class mainLista {
+	
+	public static void main(String[] args) {
+        
+		ListaEspecial lista = null;
+		lista.inicializarLista();
+		lista.append(1);
+		lista.append(2);
+		lista.append(2);
+		lista.append(1);
+		
+		boolean resultado = esCapicua(lista);
+		if(resultado==true) {
+		System.out.println("Es capicua.");
+		}
+		else {
+			System.out.println("No es capicua.");
+		}
+		repetidos(lista);
+		normalizada(lista);
+    }
+	
+	
+	private static ListaEspecial normalizada(ListaEspecial lista) {
+		int total=0;
+		ListaEspecial listaNorm = null;
+		listaNorm.inicializarLista();
+		
+		for(int i = 0; i<lista.size();i++) {
+			total = total +lista.getValor(i);
+		}
+		
+		for(int i = 0; i<lista.size();i++) {
+			listaNorm.append(lista.getValor(i)/total);		//se agregaran valores int, se debe cambiar todo a float
+		}
+		return listaNorm;	
+	}
+
+
+
+	private static void repetidos(ListaEspecial lista) {
+		lista.sort();
+		
+		for(int i = 0; i<lista.size();i++) {
+			if(lista.getValor(i)==lista.getValor(i-1)) {
+				try {
+					lista.pop(i);
+				} catch (Exception e) {
+																		// TODO - REVISAR
+					e.printStackTrace();
+				}			
+			}		
+		}		
+	}
+
+
+
+	public static boolean esCapicua(ListaEspecial lista) {
+		int i=0;
+		int n=lista.size();
+		boolean esCapicua=true;
+		
+		while(i<lista.size()/2 && esCapicua==true) {
+		
+		if(lista.getValor(i)!=lista.getValor(n));
+		esCapicua=false;
+		
+		i++;
+		n--;
+		}	
+		return esCapicua;	
+	}
+}
