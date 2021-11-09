@@ -1,5 +1,6 @@
 package principal;
 
+import impl.ColaPrioridad;
 import impl.MinHeap;
 
 public class Main {
@@ -7,6 +8,8 @@ public class Main {
         // TODO: Add testing methods for every implemented TDA.
 
         testHeapImplementation();
+
+        testColaPrioridadHeapImplementation();
     }
 
     public static void testHeapImplementation() {
@@ -82,4 +85,31 @@ public class Main {
         System.out.println("es A equivalente a C? " + MinHeap.equivalentTo(a, c));
         System.out.println("es B equivalente a C? " + MinHeap.equivalentTo(b, c));
     }
+
+    public static void testColaPrioridadHeapImplementation() {
+        System.out.println();
+        System.out.println("Testing Cola Prioridad implementada con Heap...");
+
+        System.out.println();
+        testOrdenPorPrioridad();
+
+    }
+
+    public static void testOrdenPorPrioridad() {
+        System.out.println("Testing Orden por prioridad...");
+        ColaPrioridad a = new ColaPrioridad();
+        a.InicializarCola();
+
+        a.AcolarPrioridad(1, 50);
+        a.AcolarPrioridad(2, 40);
+        a.AcolarPrioridad(3, 60);
+
+        while(!a.ColaVacia()) {
+            System.out.println("Valor: " + a.Primero() + " Prioridad: " + a.Prioridad());
+            a.Desacolar();
+        }
+
+
+    }
+
 }
